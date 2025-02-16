@@ -3,14 +3,17 @@ A Python-based **peer-to-peer (P2P) network** implementing **gossip protocol** f
 
 ## **📌 Features**
 
-- **Seed Nodes**: Manage peer discovery and maintain a list of connected peers.
+### **🔹 Seed Nodes**
+- Manage peer discovery and maintain a list of connected peers.
+- Maintain an updated peer list by **removing dead peers**.
+- Notify other peers about **newly registered peers**.
 
-- **Peer Nodes**:
-  - Register with seed nodes.
-  - Select connected peers using **power-law distribution**.
-  - Periodically send **gossip messages**.
-  - Monitor **peer liveness** with **ping messages**.
-  - Remove **dead peers** from the network.
+### **🔹 Peer Nodes**
+- Register with randomly chosen **seed nodes** (at least ⌊n/2⌋ + 1).
+- Select connected peers using a **power-law distribution**.
+- Periodically send **gossip messages** after every **5 seconds**, stopping after **10 messages**.
+- Monitor **peer liveness** using **ping messages** every 13 seconds.
+- Report **dead peers** to seed nodes if they fail **3 consecutive pings**.
   
 - **Logging**:
   - Logs all important activities (`output.txt`).
@@ -21,11 +24,11 @@ A Python-based **peer-to-peer (P2P) network** implementing **gossip protocol** f
 ## **📂 Project Structure**
 ```
 📦 P2P-Gossip-Network
- ├── 📜 seed.py                 (Seed node implementation)
- ├── 📜 peer.py                 (Peer node implementation)
- ├── 📜 config.txt              (Configuration file for seed nodes)
- ├── 📜 output.txt              (Logs all peer/seed activities)
- ├── 📜 ML.txt                  (Stores received gossip messages)
+ ├── 📜 seed.py: Manages peer registration, provides peer lists, and removes dead peers.
+ ├── 📜 peer.py: Implements the peer logic, including gossip messaging, peer connections, and liveness checks.
+ ├── 📜 config.txt: Stores seed node details (`IP:Port` pairs).
+ ├── 📜 output.txt: Stores seed node details (`IP:Port` pairs).
+ ├── 📜 ML.txt: Logs system events for debugging.
 
 ```
 
